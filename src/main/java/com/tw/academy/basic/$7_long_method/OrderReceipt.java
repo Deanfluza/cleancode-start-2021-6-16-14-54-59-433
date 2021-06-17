@@ -8,15 +8,11 @@ package com.tw.academy.basic.$7_long_method;
  * @since   2018-1-1
  */
 public class OrderReceipt {
-    private Order o;
+    public static final double TAX_RATE = .10;
+    private Order order;
 
-    public OrderReceipt(Order o) {
-        this.o = o;
-    }
-
-    //Deprecated
-    public String printCustomerName() {
-        return o.getCustomerName();
+    public OrderReceipt(Order order) {
+        this.order = order;
     }
 
     //todo: rename -- Tom
@@ -27,15 +23,13 @@ public class OrderReceipt {
         output.append("======Printing Orders======\n");
 
         // print date, bill no, customer name
-//        output.append("Date - " + order.getDate();
-        output.append(o.getCustomerName());
-        output.append(o.getCustomerAddress());
-//        output.append(order.getCustomerLoyaltyNumber());
+        output.append(order.getCustomerName());
+        output.append(order.getCustomerAddress());
 
         // prints lineItems
-        double totSalesTx = 0d;
-        double tot = 0d;
-        for (LineItem lineItem : o.getLineItems()) {
+        double totalTaxPayable = 0d;
+        double totalAmountPayable = 0d;
+        for (LineItem lineItem : order.getLineItems()) {
             output.append(lineItem.getDescription());
             output.append('\t');
             output.append(lineItem.getPrice());
@@ -46,18 +40,18 @@ public class OrderReceipt {
             output.append('\n');
 
             // calculate sales tax @ rate of 10%
-            double salesTax = lineItem.totalAmount() * .10;
-            totSalesTx += salesTax;
+            double salesTax = lineItem.totalAmount() * TAX_RATE;
+            totalTaxPayable += salesTax;
 
             // calculate total amount of lineItem = price * quantity + 10 % sales tax
-            tot += lineItem.totalAmount() + salesTax;
+            totalAmountPayable += lineItem.totalAmount() + salesTax;
         }
 
         // prints the state tax
-        output.append("Sales Tax").append('\t').append(totSalesTx);
+        output.append("Sales Tax").append('\t').append(totalTaxPayable);
 
         // print total amount
-        output.append("Total Amount").append('\t').append(tot);
+        output.append("Total Amount").append('\t').append(totalAmountPayable);
         return output.toString();
     }
 }

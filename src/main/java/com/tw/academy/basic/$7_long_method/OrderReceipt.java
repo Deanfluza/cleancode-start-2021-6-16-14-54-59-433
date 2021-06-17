@@ -32,7 +32,7 @@ public class OrderReceipt {
             insertOrderItemInfo(output, lineItem);
 
             // calculate sales tax @ rate of 10%
-            double salesTax = lineItem.totalAmount() * TAX_RATE;
+            double salesTax = getSalesTax(lineItem);
             totalTaxPayable += salesTax;
 
             // calculate total amount of lineItem = price * quantity + 10 % sales tax
@@ -41,6 +41,10 @@ public class OrderReceipt {
 
         insertPriceInfo(output, totalTaxPayable, totalAmountPayable);
         return output.toString();
+    }
+
+    private double getSalesTax(LineItem lineItem) {
+        return lineItem.totalAmount() * TAX_RATE;
     }
 
     private void insertOrderItemInfo(StringBuilder output, LineItem lineItem) {

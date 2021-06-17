@@ -10,4 +10,12 @@ public class Address {
     public String getAddress() {
         return address;
     }
+
+    public boolean isSameCity(Address fromAddress, DeliveryManager deliveryManager) {
+        return deliveryManager.getCity(fromAddress.getAddress()).equals(deliveryManager.getCity(getAddress()));
+    }
+
+    public boolean isSameProvince(Address fromAddress, DeliveryManager deliveryManager) {
+        return deliveryManager.getProvince(getAddress()).equals(deliveryManager.getProvince(fromAddress.getAddress()));
+    }
 }

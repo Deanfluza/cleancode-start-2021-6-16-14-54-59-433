@@ -16,17 +16,17 @@ public class OrderReceipt {
     }
 
     //todo: rename -- Tom
-    public String printReceipt() {
-        StringBuilder output = new StringBuilder();
+    public String getReceiptInfo() {
+        StringBuilder receiptInfo = new StringBuilder();
 
-        output.append("======Printing Orders======\n");
+        receiptInfo.append("======Printing Orders======\n");
 
-        insertCustomerInfo(output);
+        insertCustomerInfo(receiptInfo);
 
         double totalTaxPayable = 0d;
         double totalAmountPayable = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            insertOrderItemInfo(output, lineItem);
+            insertOrderItemInfo(receiptInfo, lineItem);
 
             double salesTax = getSalesTax(lineItem);
             totalTaxPayable += salesTax;
@@ -34,8 +34,8 @@ public class OrderReceipt {
             totalAmountPayable += lineItem.totalAmount() + salesTax;
         }
 
-        insertPriceInfo(output, totalTaxPayable, totalAmountPayable);
-        return output.toString();
+        insertPriceInfo(receiptInfo, totalTaxPayable, totalAmountPayable);
+        return receiptInfo.toString();
     }
 
     private double getSalesTax(LineItem lineItem) {

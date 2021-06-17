@@ -3,6 +3,8 @@
 |  ----  | ----  |
 | 11  | naming |
 | 18  | dead_code |
+| 18  | naming |
+| 21  | naming |
 | 30  | dead_code |
 | 33  | dead_code |
 | 36  | naming |

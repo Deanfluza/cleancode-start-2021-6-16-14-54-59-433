@@ -9,17 +9,17 @@ package com.tw.academy.basic.$7_long_method;
  */
 public class OrderReceipt {
     public static final double TAX_RATE = .10;
+    public static final String RECEIPT_HEADER = "======Printing Orders======\n";
     private Order order;
 
     public OrderReceipt(Order order) {
         this.order = order;
     }
 
-    //todo: rename -- Tom
     public String getReceiptInfo() {
         StringBuilder receiptInfo = new StringBuilder();
 
-        receiptInfo.append("======Printing Orders======\n");
+        insertHeader(receiptInfo);
 
         insertCustomerInfo(receiptInfo);
 
@@ -36,6 +36,10 @@ public class OrderReceipt {
 
         insertPriceInfo(receiptInfo, totalTaxPayable, totalAmountPayable);
         return receiptInfo.toString();
+    }
+
+    private StringBuilder insertHeader(StringBuilder receiptInfo) {
+        return receiptInfo.append(RECEIPT_HEADER);
     }
 
     private double getSalesTax(LineItem lineItem) {

@@ -23,8 +23,7 @@ public class OrderReceipt {
         output.append("======Printing Orders======\n");
 
         // print date, bill no, customer name
-        output.append(order.getCustomerName());
-        output.append(order.getCustomerAddress());
+        insertCustomerInfo(output);
 
         // prints lineItems
         double totalTaxPayable = 0d;
@@ -47,11 +46,20 @@ public class OrderReceipt {
             totalAmountPayable += lineItem.totalAmount() + salesTax;
         }
 
+        insertPriceInfo(output, totalTaxPayable, totalAmountPayable);
+        return output.toString();
+    }
+
+    private void insertPriceInfo(StringBuilder output, double totalTaxPayable, double totalAmountPayable) {
         // prints the state tax
         output.append("Sales Tax").append('\t').append(totalTaxPayable);
 
         // print total amount
         output.append("Total Amount").append('\t').append(totalAmountPayable);
-        return output.toString();
+    }
+
+    private void insertCustomerInfo(StringBuilder output) {
+        output.append(order.getCustomerName());
+        output.append(order.getCustomerAddress());
     }
 }

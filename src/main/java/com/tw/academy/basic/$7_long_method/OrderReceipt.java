@@ -29,14 +29,7 @@ public class OrderReceipt {
         double totalTaxPayable = 0d;
         double totalAmountPayable = 0d;
         for (LineItem lineItem : order.getLineItems()) {
-            output.append(lineItem.getDescription());
-            output.append('\t');
-            output.append(lineItem.getPrice());
-            output.append('\t');
-            output.append(lineItem.getQuantity());
-            output.append('\t');
-            output.append(lineItem.totalAmount());
-            output.append('\n');
+            insertOrderItemInfo(output, lineItem);
 
             // calculate sales tax @ rate of 10%
             double salesTax = lineItem.totalAmount() * TAX_RATE;
@@ -48,6 +41,17 @@ public class OrderReceipt {
 
         insertPriceInfo(output, totalTaxPayable, totalAmountPayable);
         return output.toString();
+    }
+
+    private void insertOrderItemInfo(StringBuilder output, LineItem lineItem) {
+        output.append(lineItem.getDescription());
+        output.append('\t');
+        output.append(lineItem.getPrice());
+        output.append('\t');
+        output.append(lineItem.getQuantity());
+        output.append('\t');
+        output.append(lineItem.totalAmount());
+        output.append('\n');
     }
 
     private void insertPriceInfo(StringBuilder output, double totalTaxPayable, double totalAmountPayable) {
